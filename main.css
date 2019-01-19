@@ -74,6 +74,7 @@ canvas {
 	width: 80%;
 	border-bottom: 2px solid #f5f5f5;
 	padding-bottom: 0;
+	text-align: center;
 }
 
 #query-container {
