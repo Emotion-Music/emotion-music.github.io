@@ -109,6 +109,13 @@ function init() {
 	}
 }
 
+function getOpacityOverlay() {
+	if (window.pageYOffset < window.innerHeight) {
+		return 3.2 * Math.pow(window.pageYOffset / window.innerHeight, 3);
+	}
+	return 1;
+}
+
 function update() {
 	if (canvas.width != window.innerWidth || canvas.height != window.innerHeight) {
 		canvas.width = window.innerWidth;
@@ -130,6 +137,11 @@ function update() {
 	for (var i = 0; i < circles.length; i++) {
 		circles[i].draw(.9);
 	}
+
+	ctx.beginPath();
+	ctx.fillStyle = "rgba(19, 11, 23, " + getOpacityOverlay() + ")";
+	ctx.fillRect(0, 0, width, height);
+	ctx.closePath();
 }
 
 update();
