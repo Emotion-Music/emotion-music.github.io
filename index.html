@@ -3,7 +3,7 @@
 <head>
 	<title>Emotion Music</title>
 </head>
-<body style="background: #151117;">
+<body style="background: #151117; overflow-x: hidden; overflow-y: hidden;">
 
 	<canvas id="canvas" onmousemove="mousePosition(event)"></canvas>
 
@@ -13,8 +13,8 @@
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var width = canvas.width - 10;
-var height = canvas.height - 10;
+var width = canvas.width;
+var height = canvas.height;
 var circles = [];
 var xp = 0;
 var yp = 0;
@@ -97,14 +97,22 @@ function init() {
 }
 
 function update() {
-	if (canvas.width != window.innerWidth - 10 || canvas.height != window.innerHeight - 10) {
-		canvas.width = window.innerWidth - 10;
-		canvas.height = window.innerHeight - 10;
+	if (canvas.width != window.innerWidth || canvas.height != window.innerHeight) {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
 		width = canvas.width;
 		height = canvas.height;
 	}
 
 	ctx.clearRect(0, 0, width, height);
+
+	ctx.beginPath();
+	var grd = ctx.createLinearGradient(0, 0, width, height / 2);
+	grd.addColorStop(0, "#151117");
+	grd.addColorStop(1, "#030104");
+	ctx.fillStyle = grd;
+	ctx.fillRect(0, 0, width, height);
+	ctx.closePath();
 
 	for (var i = 0; i < circles.length; i++) {
 		circles[i].draw(.9);
