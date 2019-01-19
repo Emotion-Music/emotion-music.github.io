@@ -1,0 +1,11 @@
+.scroll-nice::-webkit-scrollbar {
+    width: 7px;
+}
+
+.scroll-nice::-webkit-scrollbar-track {
+}
+
+.scroll-nice::-webkit-scrollbar-thumb {
+    background: #616161;
+    border-radius: 7px;
+}

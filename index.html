@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="scroll-nice">
 <head>
 	<title>Emotion Music</title>
 
@@ -105,7 +105,7 @@ class Circle {
 function init() {
 	for (var i = 0; i < 7; i++) {
 		var brightness = Math.random() * 60;
-		circles.push(new Circle(Math.random() * (width - 200) + 100, Math.random() * (height - 200) + 100, Math.random() * 50 + 50, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness));
+		circles.push(new Circle(Math.random() * (width - 200) + 100, Math.random() * (height - 200) + 100, Math.random() * window.innerWidth / 27 + window.innerWidth / 27, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness));
 	}
 }
 
