@@ -4,6 +4,63 @@
 	<title>Emotion Music</title>
 </head>
 <body>
-	Hey look its a site
+
+	<canvas id="canvas"></canvas>
+
 </body>
+
+	<script>
+
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var width = canvas.width;
+var height = canvas.height;
+var circles = [];
+
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+class Circle {
+	constructor(x, y, rad, r, g, b) {
+		this.x = x;
+		this.y = y;
+		this.rad = rad;
+		this.r = r;
+		this.g = g;
+		this.b = b;
+	}
+
+	draw() {
+		ctx.beginPath();
+		ctx.fillStyle = "#" + this.r + this.g + this.b;
+		ctx.strokeStyle = "#111111";
+		ctx.arc(this.x, this.y, this.rad, 0, 2 * Math.PI);
+		ctx.stroke();
+		ctx.closePath();
+	}
+}
+
+function init() {
+	circles.push(new Circle(width/2, height/2, 100, "55", "25", "AA"));
+}
+
+function update() {
+	if (canvas.width != window.innerWidth || canvas.height != window.innerHeight) {
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		width = canvas.width;
+		height = canvas.height;
+	}
+
+	ctx.clearRect(0, 0, width, height);
+
+
+}
+
+init();
+setInterval(update,10);
+
+</script>
+
+
 </html>
