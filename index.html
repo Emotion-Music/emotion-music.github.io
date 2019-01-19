@@ -3,7 +3,7 @@
 <head>
 	<title>Emotion Music</title>
 </head>
-<body>
+<body style="background: #000;">
 
 	<canvas id="canvas"></canvas>
 
@@ -13,8 +13,8 @@
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var width = canvas.width;
-var height = canvas.height;
+var width = canvas.width - 20;
+var height = canvas.height - 20;
 var circles = [];
 
 
@@ -43,9 +43,9 @@ function init() {
 }
 
 function update() {
-	if (canvas.width != window.innerWidth || canvas.height != window.innerHeight) {
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+	if (canvas.width != window.innerWidth - 20 || canvas.height != window.innerHeight - 20) {
+		canvas.width = window.innerWidth - 20;
+		canvas.height = window.innerHeight - 20;
 		width = canvas.width;
 		height = canvas.height;
 	}
