@@ -11,9 +11,11 @@
 
 	<link href="main.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/print/paper.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:600,700" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/6.0.1/typeit.min.js"></script>
+	<script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
 </head>
 <body style="background: #130B17; overflow-x: hidden; overflow-y: scroll;">
 
@@ -27,8 +29,26 @@
 		</div>
 	</div>
 
+	<div class="space-20"></div>
+
 	<div style="background: #130B17; height: 2000px;">
-			
+			<div class="grey-text text-lighten-4 container">
+				<div class="title-font reveal-fast fsize-l">
+					About
+				</div>
+				<div class="space-5"></div>
+				<div class="para-font reveal-slow fsize-m-">
+					Nullam quis ante. Cras id dui. Donec sodales sagittis magna. Etiam rhoncus. Donec posuere vulputate arcu.
+
+Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Duis vel nibh at velit scelerisque suscipit. Praesent adipiscing. Aliquam eu nunc. Phasellus gravida semper nisi.
+
+Aenean imperdiet. Ut varius tincidunt libero. Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Fusce ac felis sit amet ligula pharetra condimentum.
+
+Duis leo. Quisque id odio. Curabitur at lacus ac velit ornare lobortis. In ut quam vitae odio lacinia tincidunt. Cras non dolor.
+
+Etiam ultricies nisi vel augue. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Vestibulum eu odio. Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Nam eget dui.
+				</div>
+			</div>
 	</div>
 
 </body>
@@ -42,6 +62,12 @@ var height = canvas.height;
 var circles = [];
 var xp = 0;
 var yp = 0;
+
+window.sr = ScrollReveal({ reset: true });
+
+sr.reveal('.reveal-fast', { duration: 1000 });
+sr.reveal('.reveal-slow', { duration: 1500 });
+sr.reveal('.reveal-slower', { duration: 2000 });
 
 new TypeIt('#buzzwords', {
   strings: ["an Emotion.", "a Genre.", "a Musician.", "a Year."],
@@ -61,9 +87,13 @@ function mousePosition(e) {
 }
 
 function getHover() {
-	for (var i = 0; i < circles.length; i++) {
+	for (var i = circles.length - 1; i > 0; i--) {
 		if (Math.pow(Math.pow((xp - circles[i].x + circles[i].xs), 2) + Math.pow((yp - circles[i].y + circles[i].ys), 2), .5) < circles[i].rad + circles[i].radex) {
 			circles[i].hover = 1;
+			for (var c = i - 1; c > 0; c--) {
+				circles[c].hover = 0;
+			}
+			return;
 		} else {
 			circles[i].hover = 0;
 		}

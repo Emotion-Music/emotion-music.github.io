@@ -99,3 +99,11 @@ canvas {
     align-items: center;
     justify-content: center;
 }
+
+.space-20 {
+	height: 20vh;
+}
+
+.space-5 {
+	height: 5vh;
+}
