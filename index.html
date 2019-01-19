@@ -139,7 +139,7 @@ function init() {
 
 function getOpacityOverlay() {
 	if (window.pageYOffset < window.innerHeight) {
-		return 3.2 * Math.pow(window.pageYOffset / window.innerHeight, 3);
+		return 3 * Math.pow(window.pageYOffset / window.innerHeight, 3);
 	}
 	return 1;
 }
