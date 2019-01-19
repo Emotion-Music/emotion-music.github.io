@@ -53,8 +53,8 @@ class Circle {
 		this.ys = 0;
 		this.xm = Math.random() * .01;
 		this.ym = Math.random() * .01;
-		this.xa = Math.random() * 2 + 4;
-		this.ya = Math.random() * 2 + 4;
+		this.xa = Math.random() * 2 + 4 + this.rad * .05;
+		this.ya = Math.random() * 2 + 4 + this.rad * .05;
 	}
 
 	calcPos() {
@@ -65,8 +65,8 @@ class Circle {
 			this.s = 0;
 			this.xm = Math.random() * .025;
 			this.ym = Math.random() * .025;
-			this.xa = Math.random() * 2 + 4;
-			this.ya = Math.random() * 2 + 4;
+			this.xa = Math.random() * 2 + 4 + this.rad * .05;
+			this.ya = Math.random() * 2 + 4 + this.rad * .05;
 		}
 
 		if (this.hover && this.radex < this.rad * .2) {
@@ -79,7 +79,13 @@ class Circle {
 	draw(a) {
 		this.calcPos();
 		ctx.beginPath();
-		ctx.fillStyle = "rgba(" + this.r + "," + this.g + "," + this.b + "," + a + ")";
+
+		var grd = ctx.createLinearGradient(this.x - this.rad, this.y - this.rad, this.x + this.rad, this.y + 10);
+		grd.addColorStop(0, "rgba(" + (this.r + 30) + "," + (this.g + 30) + "," + (this.b + 30) + "," + a + ")");
+		grd.addColorStop(1, "rgba(" + this.r + "," + this.g + "," + this.b + "," + a + ")");
+		ctx.fillStyle = grd;
+
+		// ctx.fillStyle = "rgba(" + this.r + "," + this.g + "," + this.b + "," + a + ")";
 		ctx.strokeStyle = "#111111";
 		// ctx.lineWidth = 10;
 		ctx.arc(this.x + this.xs, this.y + this.ys, this.rad + this.radex, 0, 2 * Math.PI);
