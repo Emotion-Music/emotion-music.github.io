@@ -3,15 +3,27 @@
 <head>
 	<title>Emotion Music</title>
 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#212121">
+	<meta name="msapplication-navbutton-color" content="#212121">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 	<link href="main.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:600,700" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/6.0.1/typeit.min.js"></script>
 </head>
 <body style="background: #130B17; overflow-x: hidden; overflow-y: scroll;">
 
 	<canvas id="canvas" onmousemove="mousePosition(event)" style="height: 100%;"></canvas>
+	
+	<div id="search">
+		<p class="title-font grey-text text-lighten-4 fsize-xm">Search for <span id="buzzwords"></span></p>
+	</div>
 
-	<div style="background: #130B17; height: 600px;">
-		
+	<div style="background: #130B17; height: 2000px;">
+			
 	</div>
 
 </body>
@@ -25,6 +37,17 @@ var height = canvas.height;
 var circles = [];
 var xp = 0;
 var yp = 0;
+
+new TypeIt('#buzzwords', {
+  strings: ["an Emotion.", "a Genre.", "a Musician.", "a Year."],
+  startDelay: 1000,
+  speed: 70,
+  nextStringDelay: 2500,
+  breakLines: false,
+  waitUntilVisible: true,
+  loop: true,
+  lifeLike: true
+}).go();
 
 function mousePosition(e) {
 	xp = e.clientX;
@@ -103,7 +126,7 @@ class Circle {
 }
 
 function init() {
-	for (var i = 0; i < 7; i++) {
+	for (var i = 0; i < 10; i++) {
 		var brightness = Math.random() * 60;
 		circles.push(new Circle(Math.random() * (width - 200) + 100, Math.random() * (height - 200) + 100, Math.random() * window.innerWidth / 27 + window.innerWidth / 27, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness));
 	}

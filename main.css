@@ -9,3 +9,63 @@
     background: #616161;
     border-radius: 7px;
 }
+
+.title-font {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 700;
+}
+
+.subtitle-font {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 600;
+}
+
+.subtitle-font {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+}
+
+.fsize-h {
+	font-size: 16vw;
+	line-height: 11vw;
+}
+
+.fsize-l {
+	font-size: 11.8vw;
+	line-height: 10vw;
+}
+
+.fsize-xm {
+	font-size: 4vw;
+	line-height: 5vw;
+}
+
+.fsize-m {
+	font-size: 2vw;
+	line-height: 5vw;
+}
+
+.fsize-m- {
+	font-size: 1.5vw;
+	lighting-color: 4vw;
+}
+
+.fsize-s {
+	font-size: 1vw;
+	line-height: 1.5vw;
+}
+
+.fsize-t {
+	font-size: .7vw;
+}
+
+canvas {
+	position: relative;
+}
+
+#search {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%,-40%);
+}
