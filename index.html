@@ -11,6 +11,7 @@
 
 	<link href="main.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:600,700" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/6.0.1/typeit.min.js"></script>
 </head>
@@ -19,7 +20,11 @@
 	<canvas id="canvas" onmousemove="mousePosition(event)" style="height: 100%;"></canvas>
 	
 	<div id="search">
-		<p class="title-font grey-text text-lighten-4 fsize-xm">Search for <span id="buzzwords"></span></p>
+		<p class="title-font grey-text text-lighten-4 fsize-m center-align">Search for <span id="buzzwords"></span></p>
+		<div id="query-container">
+			<input autocomplete="off" id="query" type="text" name="query" class="grey-text text-lighten-4 para-font">
+			<i class="material-icons para-font grey-text text-lighten-4 center-align">search</i>
+		</div>
 	</div>
 
 	<div style="background: #130B17; height: 2000px;">
