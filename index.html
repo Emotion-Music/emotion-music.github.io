@@ -3,7 +3,7 @@
 <head>
 	<title>Emotion Music</title>
 </head>
-<body style="background: #EEE;">
+<body style="background: #151117;">
 
 	<canvas id="canvas" onmousemove="mousePosition(event)"></canvas>
 
@@ -13,8 +13,8 @@
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-var width = canvas.width - 20;
-var height = canvas.height - 20;
+var width = canvas.width - 10;
+var height = canvas.height - 10;
 var circles = [];
 var xp = 0;
 var yp = 0;
@@ -90,15 +90,16 @@ class Circle {
 }
 
 function init() {
-	for (var i = 0; i < 10; i++) {
-		circles.push(new Circle(Math.random() * (width - 200) + 100, Math.random() * (height - 200) + 100, Math.random() * 50 + 50, Math.random() * 80 + 120, Math.random() * 80 + 120, Math.random() * 80 + 120));
+	for (var i = 0; i < 7; i++) {
+		var brightness = Math.random() * 60;
+		circles.push(new Circle(Math.random() * (width - 200) + 100, Math.random() * (height - 200) + 100, Math.random() * 50 + 50, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness));
 	}
 }
 
 function update() {
-	if (canvas.width != window.innerWidth - 20 || canvas.height != window.innerHeight - 20) {
-		canvas.width = window.innerWidth - 20;
-		canvas.height = window.innerHeight - 20;
+	if (canvas.width != window.innerWidth - 10 || canvas.height != window.innerHeight - 10) {
+		canvas.width = window.innerWidth - 10;
+		canvas.height = window.innerHeight - 10;
 		width = canvas.width;
 		height = canvas.height;
 	}
