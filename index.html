@@ -6,11 +6,11 @@
 	<link href="main.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
 </head>
-<body style="background: #100715; overflow-x: hidden; overflow-y: scroll;">
+<body style="background: #221429; overflow-x: hidden; overflow-y: scroll;">
 
 	<canvas id="canvas" onmousemove="mousePosition(event)" style="height: 100%;"></canvas>
 
-	<div style="background: #100715; height: 600px;">
+	<div style="background: #221429; height: 600px;">
 		
 	</div>
 
@@ -122,7 +122,7 @@ function update() {
 	ctx.beginPath();
 	var grd = ctx.createLinearGradient(0, 0, 0, height);
 	grd.addColorStop(0, "#37313B");
-	grd.addColorStop(1, "#100715");
+	grd.addColorStop(1, "#221429");
 	ctx.fillStyle = grd;
 	ctx.fillRect(0, 0, width, height);
 	ctx.closePath();
