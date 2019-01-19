@@ -3,9 +3,9 @@
 <head>
 	<title>Emotion Music</title>
 </head>
-<body style="background: #000;">
+<body style="background: #EEE;">
 
-	<canvas id="canvas"></canvas>
+	<canvas id="canvas" onmousemove="mousePosition(event)"></canvas>
 
 </body>
 
@@ -16,30 +16,83 @@ var ctx = canvas.getContext("2d");
 var width = canvas.width - 20;
 var height = canvas.height - 20;
 var circles = [];
+var xp = 0;
+var yp = 0;
 
+function mousePosition(e) {
+	xp = e.clientX;
+	yp = e.clientY;
+	getHover();
+}
+
+function getHover() {
+	for (var i = 0; i < circles.length; i++) {
+		if (Math.pow(Math.pow((xp - circles[i].x + circles[i].xs), 2) + Math.pow((yp - circles[i].y + circles[i].ys), 2), .5) < circles[i].rad + circles[i].radex) {
+			circles[i].hover = 1;
+		} else {
+			circles[i].hover = 0;
+		}
+	}
+}
 
 class Circle {
 	constructor(x, y, rad, r, g, b) {
 		this.x = x;
 		this.y = y;
+
 		this.rad = rad;
+		this.radex = 0;
+		this.hover = 0;
+
 		this.r = r;
 		this.g = g;
 		this.b = b;
+
+		this.s = 0;
+		this.xs = 0;
+		this.ys = 0;
+		this.xm = Math.random() * .01;
+		this.ym = Math.random() * .01;
+		this.xa = Math.random() * 2 + 4;
+		this.ya = Math.random() * 2 + 4;
 	}
 
-	draw() {
+	calcPos() {
+		this.xs = Math.sin(this.s * this.xm) * this.xa;
+		this.ys = Math.sin(this.s * this.ym) * this.ya;
+		this.s++;
+		if (!this.s % 1500) {
+			this.s = 0;
+			this.xm = Math.random() * .025;
+			this.ym = Math.random() * .025;
+			this.xa = Math.random() * 2 + 4;
+			this.ya = Math.random() * 2 + 4;
+		}
+
+		if (this.hover && this.radex < this.rad * .2) {
+			this.radex++;
+		} else if (!this.hover && this.radex > 0) {
+			this.radex--;
+		}
+	}
+
+	draw(a) {
+		this.calcPos();
 		ctx.beginPath();
-		ctx.fillStyle = "#" + this.r + this.g + this.b;
+		ctx.fillStyle = "rgba(" + this.r + "," + this.g + "," + this.b + "," + a + ")";
 		ctx.strokeStyle = "#111111";
-		ctx.arc(this.x, this.y, this.rad, 0, 2 * Math.PI);
-		ctx.stroke();
+		// ctx.lineWidth = 10;
+		ctx.arc(this.x + this.xs, this.y + this.ys, this.rad + this.radex, 0, 2 * Math.PI);
+		ctx.fill();
+		// ctx.stroke();
 		ctx.closePath();
 	}
 }
 
 function init() {
-	circles.push(new Circle(width/2, height/2, 100, "55", "25", "AA"));
+	for (var i = 0; i < 10; i++) {
+		circles.push(new Circle(Math.random() * (width - 200) + 100, Math.random() * (height - 200) + 100, Math.random() * 50 + 50, Math.random() * 80 + 120, Math.random() * 80 + 120, Math.random() * 80 + 120));
+	}
 }
 
 function update() {
@@ -52,11 +105,12 @@ function update() {
 
 	ctx.clearRect(0, 0, width, height);
 
-	for (int i = 0; i < circles.length; i++) {
-		circles[i].draw();
+	for (var i = 0; i < circles.length; i++) {
+		circles[i].draw(.9);
 	}
 }
 
+update();
 init();
 setInterval(update,10);
 
