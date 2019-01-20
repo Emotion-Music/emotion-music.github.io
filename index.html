@@ -16,10 +16,11 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway:600,700" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/6.0.1/typeit.min.js"></script>
 	<script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body style="background: #130B17; overflow-x: hidden; overflow-y: scroll;">
 
-	<canvas id="canvas" onmousemove="mousePosition(event)" style="height: 100%;"></canvas>
+	<canvas id="canvas" onmousemove="mousePosition(event)" onmousedown="mouseClick(event, 'd')" style="height: 100%;"></canvas>
 	
 	<div id="search">
 		<p class="title-font grey-text text-lighten-4 fsize-m center-align">Search for <span id="buzzwords"></span></p>
@@ -63,6 +64,19 @@ var circles = [];
 var xp = 0;
 var yp = 0;
 
+document.getElementById('query').onkeydown = function(event) {
+    if (event.keyCode == 13) {
+    	// enter pressed
+    }
+}
+
+  //       $.post("receiver", $('#query').val(), function(){
+
+		// });
+		// console.log('sending?');
+		// // stop link reloading the page
+	 // 	event.preventDefault();
+
 window.sr = ScrollReveal({ reset: true });
 
 sr.reveal('.reveal-fast', { duration: 1200 });
@@ -80,6 +94,32 @@ new TypeIt('#buzzwords', {
   lifeLike: true
 }).go();
 
+function mouseClick(e,s) {
+	if (s == 'd') {
+		m_down = true;
+		var h = 0;
+		for (var i = 0; i < circles.length; i++) {
+			if (circles[i].hover) {
+				h = i;
+			}
+		}
+
+		if (h) {
+			circles[h].expand();
+			for (var i = 0; i < circles.length; i++) {
+				if (i != h) {
+					circles[i].shrink();
+				}
+			}
+		}
+		//console.log('down');
+	}
+	if (s == 'u') {
+		m_down = false;
+		//console.log('up');
+	}
+}
+
 function mousePosition(e) {
 	xp = e.clientX;
 	yp = e.clientY + window.pageYOffset;
@@ -87,7 +127,7 @@ function mousePosition(e) {
 }
 
 function getHover() {
-	for (var i = circles.length - 1; i > 0; i--) {
+	for (var i = circles.length - 1; i > -1; i--) {
 		if (Math.pow(Math.pow((xp - circles[i].x + circles[i].xs), 2) + Math.pow((yp - circles[i].y + circles[i].ys), 2), .5) < circles[i].rad + circles[i].radex) {
 			circles[i].hover = 1;
 			for (var c = i - 1; c > 0; c--) {
@@ -120,6 +160,9 @@ class Circle {
 		this.ym = Math.random() * .01;
 		this.xa = Math.random() * 2 + 4 + this.rad * .05;
 		this.ya = Math.random() * 2 + 4 + this.rad * .05;
+
+		this.exp = 0;
+		this.shr = 0;
 	}
 
 	calcPos() {
@@ -142,6 +185,27 @@ class Circle {
 	}
 
 	draw(a) {
+		if (this.exp) {
+			if (this.radex >= width) {
+				this.radex = -1 * this.rad;
+				this.hover = 0;
+				this.exp = 0;
+				a = 0;
+			} else {
+				this.radex += 10;
+				a -= this.radex / width;
+			}
+		}
+		if (this.shr) {
+			this.radex -= 2;
+			if (this.radex <= -1 * this.rad) {
+				this.radex = -1 * this.rad;
+				this.shr = 0;
+			}
+		}
+
+		a = Math.max(a, 0);
+
 		this.calcPos();
 		ctx.beginPath();
 
@@ -157,6 +221,14 @@ class Circle {
 		ctx.fill();
 		// ctx.stroke();
 		ctx.closePath();
+	}
+
+	expand() {
+		this.exp = 1;
+	}
+
+	shrink() {
+		this.shr = 1;
 	}
 }
 
