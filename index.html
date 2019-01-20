@@ -23,32 +23,53 @@
 	<canvas id="canvas" onmousemove="mousePosition(event)" onmousedown="mouseClick(event, 'd')" style="height: 100%;"></canvas>
 	
 	<div id="search">
-		<p class="title-font grey-text text-lighten-4 fsize-m center-align">Search for <span id="buzzwords"></span></p>
-		<div id="query-container" class="flex-container">
-			<input autocomplete="off" id="query" type="text" name="query" class="grey-text text-lighten-4 para-font">
-			<i class="material-icons para-font grey-text text-lighten-4">search</i>
-		</div>
+		<p class="title-font grey-text text-lighten-4 fsize-xm center-align">Music is <span id="buzzwords"></span></p>
 	</div>
+
+	<div id="scroll-prompt" class="prompt">
+		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40.05px" height="35.69px" viewBox="-8.369 -3.009 40.05 35.69" enable-background="new -8.369 -3.009 40.05 35.69" xml:space="preserve" class="svg-scroll">
+		    <g>
+			  	<path d="M12.406,32.394l7.6-7.601l0,0l11.301-11.2c0.5-0.5,0.5-1.199,0-1.699l-2.301-2.301c-0.5-0.5-1.199-0.5-1.699,0l-14.9,14.9
+					c-0.5,0.5-1.2,0.5-1.701,0l-14.8-14.9c-0.5-0.5-1.2-0.5-1.7,0l-2.199,2.2c-0.5,0.5-0.5,1.2,0,1.7l11.199,11.2l0,0l7.601,7.6
+					C11.206,32.793,12.006,32.793,12.406,32.394"/>
+		    </g>
+		</svg>
+	</div>
+
 
 	<div class="space-20"></div>
 
-	<div style="background: #130B17; height: 2000px;">
+	<div style="background: #130B17;">
 			<div class="grey-text text-lighten-4 container">
 				<div class="title-font reveal-fast fsize-l">
 					About
 				</div>
 				<div class="space-5"></div>
 				<div class="para-font reveal-slow fsize-m-">
-					Nullam quis ante. Cras id dui. Donec sodales sagittis magna. Etiam rhoncus. Donec posuere vulputate arcu.
-
-Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Duis vel nibh at velit scelerisque suscipit. Praesent adipiscing. Aliquam eu nunc. Phasellus gravida semper nisi.
-
-Aenean imperdiet. Ut varius tincidunt libero. Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Fusce ac felis sit amet ligula pharetra condimentum.
-
-Duis leo. Quisque id odio. Curabitur at lacus ac velit ornare lobortis. In ut quam vitae odio lacinia tincidunt. Cras non dolor.
-
-Etiam ultricies nisi vel augue. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Vestibulum eu odio. Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Nam eget dui.
+					Modern music categorization doesn’t capture the instinct or the spontaneity that music conveys. That's why we set out to create a product that shares music through emotion.
+                    
+                    We're able to do just that using 3 key processes. We use the Google Cloud Natural Language API to process lyrics, Recurrent Neural Networks to process emotion using pitch, instruments and sound, and lastly we use k-means clustering as a way to categorise each song into different emotions.
 				</div>
+				<div class="space-20"></div>
+				<div class="title-font reveal-fast fsize-xm">
+					Try it yourself
+				</div>
+				<div class="space-5"></div>
+				<div class="row">
+					<div id="submit-btn" class="col s6 button-container title-font grey-text text-darken-4 reveal-slow fsize-m-">
+						<div class="flex-container">
+							Upload
+						</div>
+					</div>
+					<div class="col s6 valign-wrapper left-align title-font grey-text text-lighten-4 reveal-slow fsize-m-" style="height: 4vw;">
+						<div>
+							(files must be mp3 for music and txt for lyrics)
+						</div>
+					</div>
+				</div>
+				<div class="space-20"></div>
+				<div class="space-20"></div>
+				<div class="space-20"></div>
 			</div>
 	</div>
 
@@ -64,18 +85,13 @@ var circles = [];
 var xp = 0;
 var yp = 0;
 
-document.getElementById('query').onkeydown = function(event) {
-    if (event.keyCode == 13) {
-    	// enter pressed
-    }
-}
+$(window).scroll(function(){
+	$(".prompt").css("opacity", 1 - $(window).scrollTop() / 250);
+});
 
-  //       $.post("receiver", $('#query').val(), function(){
-
-		// });
-		// console.log('sending?');
-		// // stop link reloading the page
-	 // 	event.preventDefault();
+$('#submit-btn').click(function() {
+	alert('File upload');
+});
 
 window.sr = ScrollReveal({ reset: true });
 
@@ -84,7 +100,7 @@ sr.reveal('.reveal-slow', { duration: 1700 });
 sr.reveal('.reveal-slower', { duration: 2200 });
 
 new TypeIt('#buzzwords', {
-  strings: ["an Emotion.", "a Genre.", "a Musician.", "a Year."],
+  strings: ["an Emotion.", "not a Genre."],
   startDelay: 1000,
   speed: 70,
   nextStringDelay: 2500,
@@ -93,33 +109,6 @@ new TypeIt('#buzzwords', {
   loop: true,
   lifeLike: true
 }).go();
-
-function mouseClick(e,s) {
-	if (s == 'd') {
-		m_down = true;
-		var h = 0;
-		for (var i = 0; i < circles.length; i++) {
-			if (circles[i].hover) {
-				h = i;
-			}
-		}
-
-		if (h) {
-			$('#search').fadeTo(400, 0);
-			circles[h].expand();
-			for (var i = 0; i < circles.length; i++) {
-				if (i != h) {
-					circles[i].shrink();
-				}
-			}
-		}
-		//console.log('down');
-	}
-	if (s == 'u') {
-		m_down = false;
-		//console.log('up');
-	}
-}
 
 function mousePosition(e) {
 	xp = e.clientX;
@@ -161,9 +150,6 @@ class Circle {
 		this.ym = Math.random() * .01;
 		this.xa = Math.random() * 2 + 4 + this.rad * .05;
 		this.ya = Math.random() * 2 + 4 + this.rad * .05;
-
-		this.exp = 0;
-		this.shr = 0;
 	}
 
 	calcPos() {
@@ -186,27 +172,6 @@ class Circle {
 	}
 
 	draw(a) {
-		if (this.exp) {
-			if (this.radex >= width) {
-				this.radex = -1 * this.rad;
-				this.hover = 0;
-				this.exp = 0;
-				a = 0;
-			} else {
-				this.radex += 10;
-				a -= this.radex / width;
-			}
-		}
-		if (this.shr) {
-			this.radex -= 2;
-			if (this.radex <= -1 * this.rad) {
-				this.radex = -1 * this.rad;
-				this.shr = 0;
-			}
-		}
-
-		a = Math.max(a, 0);
-
 		this.calcPos();
 		ctx.beginPath();
 
@@ -222,14 +187,6 @@ class Circle {
 		ctx.fill();
 		// ctx.stroke();
 		ctx.closePath();
-	}
-
-	expand() {
-		this.exp = 1;
-	}
-
-	shrink() {
-		this.shr = 1;
 	}
 }
 
