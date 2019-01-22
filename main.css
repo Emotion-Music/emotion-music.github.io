@@ -102,6 +102,10 @@ canvas {
 	height: 20vh;
 }
 
+.space-12 {
+	height: 12vh;
+}
+
 .space-5 {
 	height: 5vh;
 }
@@ -154,10 +158,10 @@ svg {
   	}
 }
 
-.pink-bg {
-	background-color: #e8f5e9;
+.lime-bg {
+	background-color: #D5E5D7;
 }
 
-#top {
+.diag {
 	margin-bottom: -6px;
 }
