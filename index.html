@@ -18,7 +18,7 @@
 	<script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
-<body style="background: #130B17; overflow-x: hidden; overflow-y: scroll;">
+<body style="background: #212121; overflow-x: hidden; overflow-y: scroll;">
 
 	<canvas id="canvas" onmousemove="mousePosition(event)" onmousedown="mouseClick(event, 'd')" style="height: 100%;"></canvas>
 	
@@ -39,8 +39,10 @@
 
 	<div class="space-20"></div>
 
-	<div style="background: #130B17;">
-			<div class="grey-text text-lighten-4 container">
+	<div style="background: #212121;">
+		<svg id="top" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1932 213"><defs><style>.cls-1{fill:none;}.cls-2{fill:#fce4ec;}</style></defs><title>top</title><polygon class="cls-1" points="966 85 1932 0.49 1932 0 966 85"/><polygon class="cls-2" points="0 170 0 213 1932 213 1932 0.49 966 85 0 170"/></svg>
+		<div class="pink-bg">
+			<div class="grey-text text-darken-4 container">
 				<div class="title-font reveal-fast fsize-l">
 					About
 				</div>
@@ -50,27 +52,33 @@
                     
                     We're able to do just that using 3 key processes. We use the Google Cloud Natural Language API to process lyrics, Recurrent Neural Networks to process emotion using pitch, instruments and sound, and lastly we use k-means clustering as a way to categorise each song into different emotions.
 				</div>
-				<div class="space-20"></div>
-				<div class="title-font reveal-fast fsize-xm">
-					Try it yourself
-				</div>
-				<div class="space-5"></div>
-				<div class="row">
-					<div id="submit-btn" class="col s6 button-container title-font grey-text text-darken-4 reveal-slow fsize-m-">
-						<div class="flex-container">
-							Upload
-						</div>
-					</div>
-					<div class="col s6 valign-wrapper left-align title-font grey-text text-lighten-4 reveal-slow fsize-m-" style="height: 4vw;">
-						<div>
-							(files must be mp3 for music and txt for lyrics)
-						</div>
-					</div>
-				</div>
-				<div class="space-20"></div>
-				<div class="space-20"></div>
-				<div class="space-20"></div>
 			</div>
+		</div>
+		<svg id="bottom" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1932 213"><defs><style>.cls-1{fill:none;}.cls-2{fill:#fce4ec;}</style></defs><title>bottom</title><polygon class="cls-1" points="966 128 0 212.51 0 213 966 128"/><polygon class="cls-2" points="1932 43 1932 0 0 0 0 212.51 966 128 1932 43"/></svg>
+
+		<div class="space-20"></div>
+		<div class="space-20"></div>
+		<div class="grey-text text-lighten-4 container">
+			<div class="title-font reveal-fast fsize-xm">
+				Try it yourself
+			</div>
+			<div class="space-5"></div>
+			<div class="row">
+				<div id="submit-btn" class="col s6 button-container title-font grey-text text-darken-4 reveal-slow fsize-m-">
+					<div class="flex-container">
+						Upload
+					</div>
+				</div>
+				<div class="col s6 valign-wrapper left-align title-font grey-text text-lighten-4 reveal-slow fsize-m-" style="height: 4vw;">
+					<div>
+						(files must be mp3 for music and txt for lyrics)
+					</div>
+				</div>
+			</div>
+			<div class="space-20"></div>
+			<div class="space-20"></div>
+			<div class="space-20"></div>
+		</div>
 	</div>
 
 </body>
@@ -120,10 +128,10 @@ function getHover() {
 	for (var i = circles.length - 1; i > -1; i--) {
 		if (Math.pow(Math.pow((xp - circles[i].x + circles[i].xs), 2) + Math.pow((yp - circles[i].y + circles[i].ys), 2), .5) < circles[i].rad + circles[i].radex) {
 			circles[i].hover = 1;
-			for (var c = i - 1; c > 0; c--) {
-				circles[c].hover = 0;
-			}
-			return;
+			// for (var c = i - 1; c > 0; c--) {
+			// 	circles[c].hover = 0;
+			// }
+			// return;
 		} else {
 			circles[i].hover = 0;
 		}
@@ -193,7 +201,7 @@ class Circle {
 function init() {
 	for (var i = 0; i < 10; i++) {
 		var brightness = Math.random() * 60;
-		circles.push(new Circle(Math.random() * (width - 200) + 100, Math.random() * (height - 200) + 100, Math.random() * window.innerWidth / 27 + window.innerWidth / 27, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness));
+		circles.push(new Circle(Math.random() * (width - 200) + 100, Math.random() * (window.innerHeight - 200) + 100, Math.random() * window.innerWidth / 27 + window.innerWidth / 27, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness, Math.random() * 7 + 60 + brightness));
 	}
 }
 
@@ -205,9 +213,9 @@ function getOpacityOverlay() {
 }
 
 function update() {
-	if (canvas.width != window.innerWidth || canvas.height != window.innerHeight) {
+	if (canvas.width != window.innerWidth || canvas.height != window.innerHeight + 200) {
 		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		canvas.height = window.innerHeight + 200;
 		width = canvas.width;
 		height = canvas.height;
 	}
@@ -216,8 +224,8 @@ function update() {
 
 	ctx.beginPath();
 	var grd = ctx.createLinearGradient(0, 0, 0, height);
-	grd.addColorStop(0, "#303031");
-	grd.addColorStop(1, "#130B17");
+	grd.addColorStop(0, "#404040");
+	grd.addColorStop(1, "#212121");
 	ctx.fillStyle = grd;
 	ctx.fillRect(0, 0, width, height);
 	ctx.closePath();
@@ -227,7 +235,7 @@ function update() {
 	}
 
 	ctx.beginPath();
-	ctx.fillStyle = "rgba(19, 11, 23, " + getOpacityOverlay() + ")";
+	ctx.fillStyle = "rgba(33, 33, 33, " + getOpacityOverlay() + ")";
 	ctx.fillRect(0, 0, width, height);
 	ctx.closePath();
 }

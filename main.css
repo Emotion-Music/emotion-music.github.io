@@ -153,3 +153,11 @@ svg {
     	-webkit-transform: translateY(0px);
   	}
 }
+
+.pink-bg {
+	background-color: #fce4ec;
+}
+
+#top {
+	margin-bottom: -6px;
+}
